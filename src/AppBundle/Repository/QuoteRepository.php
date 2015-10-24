@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class QuoteRepository extends EntityRepository
 {
+    /**
+     * @return mixed
+     */
+    public function findRandom()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->getQuery();
+
+        $quotes = $qb->getResult();
+        shuffle($quotes);
+
+        return $quotes[0];
+    }
 }

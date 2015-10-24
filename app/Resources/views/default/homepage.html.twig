@@ -44,12 +44,47 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+
+        <div class="col-sm-12">
+            <div class="jumbotron">
+                <p>Browse the <b>quotes section</b> of the demo application.</p>
+                <a class="btn btn-primary btn-lg" href="{{ path('quote_index') }}">
+                    <i class="fa fa-quote-left"></i> View all Quotes
+                </a>
+            </div>
+
         </div>
-        <div class="col-sm-6">
-            <a class="btn btn-primary btn-lg" href="{{ path('quote_index') }}">
-                <i class="fa fa-quote-left"></i> View all Quotes
-            </a>
-        </div>
+
     </div>
+    
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            {% if random_quote_event is defined and not null %}
+
+                <blockquote class="text-left" cite="{{ random_quote_event.author }}">
+                    {{ random_quote_event.quote }}
+                    <small>{{ random_quote_event.author }} at <cite title="PHP Belfast">PHP Belfast</cite></small>
+                </blockquote>
+
+            {% endif %}
+
+        </div>
+
+        <div class="col-sm-6">
+
+            {% if random_quote_extension is defined and not null %}
+
+                <blockquote class="blockquote-reverse" cite="{{ random_quote_extension.author }}">
+                    {{ random_quote_extension.quote }}
+                    <small>{{ random_quote_extension.author }} at <cite title="PHP Belfast">PHP Belfast</cite></small>
+                </blockquote>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
 {% endblock %}

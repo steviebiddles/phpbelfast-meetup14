@@ -11,6 +11,7 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Repository\QuoteRepository;
 use AppBundle\Utils\Markdown;
 use Carbon\Carbon;
 use Symfony\Component\Intl\Intl;
@@ -39,10 +40,16 @@ class AppExtension extends \Twig_Extension
      */
     private $locales;
 
-    public function __construct(Markdown $parser, $locales)
+    /**
+     * @var QuoteRepository
+     */
+    private $quoteRepository;
+
+    public function __construct(Markdown $parser, $locales, QuoteRepository $quoteRepository)
     {
         $this->parser = $parser;
         $this->locales = $locales;
+        $this->quoteRepository = $quoteRepository;
     }
 
     /**
@@ -75,6 +82,16 @@ class AppExtension extends \Twig_Extension
         $parts = explode('/', $content);
 
         return Carbon::createFromDate($parts[2], $parts[1], $parts[0])->age;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGlobals()
+    {
+        return array(
+            'random_quote_extension' => $this->quoteRepository->findRandom()
+        );
     }
 
     /**

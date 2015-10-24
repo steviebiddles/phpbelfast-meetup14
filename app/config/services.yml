@@ -12,7 +12,7 @@ services:
     app.twig.app_extension:
         public:    false
         class:     AppBundle\Twig\AppExtension
-        arguments: [@markdown, %app_locales%]
+        arguments: [@markdown, %app_locales%, @app.quote_repository]
         tags:
             - { name: twig.extension }
 
@@ -25,6 +25,17 @@ services:
     app.redirect_to_preferred_locale_listener:
         class: AppBundle\EventListener\RedirectToPreferredLocaleListener
         arguments: [@router, %app_locales%, %locale%]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    app.quote_repository:
+        class:     Doctrine\ORM\EntityRepository
+        factory:   [@doctrine.orm.entity_manager, getRepository]
+        arguments: [AppBundle\Entity\Quote]
+
+    app.random_quote_listener:
+        class: AppBundle\EventListener\RandomQuoteListener
+        arguments: [@twig, @app.quote_repository]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
