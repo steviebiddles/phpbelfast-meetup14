@@ -1,5 +1,6 @@
 # Misc.
 .idea
+.vagrant
 *.sqlite
 
 /app/bootstrap.php.cache
