@@ -12,6 +12,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Utils\Markdown;
+use Carbon\Carbon;
 use Symfony\Component\Intl\Intl;
 
 /**
@@ -51,6 +52,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('md2html', array($this, 'markdownToHtml'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFilter('age', array($this, 'getAge')),
         );
     }
 
@@ -62,6 +64,17 @@ class AppExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('locales', array($this, 'getLocales')),
         );
+    }
+
+    /**
+     * @param $content
+     * @return int
+     */
+    public function getAge($content)
+    {
+        $parts = explode('/', $content);
+
+        return Carbon::createFromDate($parts[2], $parts[1], $parts[0])->age;
     }
 
     /**
@@ -85,10 +98,14 @@ class AppExtension extends \Twig_Extension
      */
     public function getLocales()
     {
+        $locales = array();
         $localeCodes = explode('|', $this->locales);
 
         foreach ($localeCodes as $localeCode) {
-            $locales[] = array('code' => $localeCode, 'name' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode));
+            $locales[] = array(
+                'code' => $localeCode,
+                'name' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode)
+            );
         }
 
         return $locales;
