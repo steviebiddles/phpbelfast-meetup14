@@ -228,6 +228,11 @@
                 <target>Post deleted successfully!</target>
             </trans-unit>
 
+            <trans-unit id="help.app_hello">
+                <source>help.app_hello</source>
+                <target>Hello PHP Belfast!</target>
+            </trans-unit>
+
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>
                 <target><![CDATA[This is a <strong>demo application</strong> built in the Symfony Framework to illustrate the recommended way of developing Symfony applications.]]></target>

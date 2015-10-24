@@ -196,6 +196,10 @@
                 <target>Soyez le premier à commenter cet article.</target>
             </trans-unit>
 
+            <trans-unit id="help.app_hello">
+                <source>help.app_hello</source>
+                <target>Bonjour PHP Belfast!</target>
+            </trans-unit>
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>
                 <target><![CDATA[Ceci est une <strong>application de démonstration</strong> construite avec le framework Symfony pour illustrer la façon recommandée de développer des applications Symfony.]]></target>

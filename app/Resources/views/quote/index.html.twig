@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'quote_index' %}
+
+{% block main %}
+
+    {% if quotes is defined and not null %}
+
+        {% for quote in quotes %}
+
+            <blockquote cite="{{ quote.author }}">
+                {{ quote.quote }}
+                <small>{{ quote.author }}</small>
+            </blockquote>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="section about">
+        <div class="well well-lg">
+            <p>{{ 'help.app_hello'|trans|raw }}</p>
+        </div>
+    </div>
+
+    {{ parent() }}
+{% endblock %}
