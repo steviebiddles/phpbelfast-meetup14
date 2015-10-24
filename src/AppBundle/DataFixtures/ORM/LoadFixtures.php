@@ -11,6 +11,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Quote;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
@@ -42,6 +43,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
     {
         $this->loadUsers($manager);
         $this->loadPosts($manager);
+        $this->loadQuotes($manager);
     }
 
     private function loadUsers(ObjectManager $manager)
@@ -91,6 +93,20 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
             }
 
             $manager->persist($post);
+        }
+
+        $manager->flush();
+    }
+
+    private function loadQuotes(ObjectManager $manager)
+    {
+        for ($i = 1; $i <= 10; $i++) {
+            $quote = new Quote();
+
+            $quote->setQuote($this->getRandomQuote());
+            $quote->setAuthor($this->getRandomQuoteAuthor());
+
+            $manager->persist($quote);
         }
 
         $manager->flush();
@@ -190,5 +206,30 @@ MARKDOWN;
         shuffle($phrases);
 
         return implode(' ', array_slice($phrases, 0, $numPhrases-1));
+    }
+
+    private function getRandomQuote()
+    {
+        $quotes = array(
+            'Scholars, suns, and embittered explosion of the sufferings will always protect them.',
+            'Diced, slobbery pudding is best whisked with whole honey.',
+            'Gar, yer not crushing me without a pestilence!',
+            'Why does the planet walk?',
+            'Harmony is not outer in over there, the country of history, or nirvana, but everywhere.',
+            'After mashing the marshmellows, whisk bagel, lentils and steak lassi with it in a bowl.',
+        );
+
+        return $quotes[array_rand($quotes)];
+    }
+
+    private function getRandomQuoteAuthor()
+    {
+        $authors = array(
+            'Mr. Joe Bloggs',
+            'Mrs. Lesa Burnell',
+            'Mr. Craig Paz'
+        );
+
+        return $authors[array_rand($authors)];
     }
 }
