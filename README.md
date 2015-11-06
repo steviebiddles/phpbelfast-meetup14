@@ -1,10 +1,12 @@
-Symfony Demo Application
-========================
+Symfony Demo Application - PHP Belfast Demo
+===========================================
 
 The "Symfony Demo Application" is a reference application created to show how
 to develop Symfony applications following the recommended best practices.
 
-[![Build Status](https://travis-ci.org/symfony/symfony-demo.svg?branch=master)](https://travis-ci.org/symfony/symfony-demo)
+This installation of the application has been modified and demonstrated during [PHP Belfast Meetup #14](https://www.youtube.com/watch?v=yskGjb9OUm8).
+
+* If you use vagrant simply ```vagrant up``` or follow the Symfony steps below.
 
 Requirements
 ------------
