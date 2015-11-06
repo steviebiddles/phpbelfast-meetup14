@@ -26,7 +26,10 @@ class QuoteController extends Controller
      */
     public function indexAction()
     {
-        $quotes = $this->getDoctrine()->getRepository('AppBundle:Quote')
+        /*$quotes = $this->getDoctrine()->getRepository('AppBundle:Quote')
+            ->findAll();*/
+
+        $quotes = $this->container->get('app.quote_repository')
             ->findAll();
 
         return $this->render(':quote:index.html.twig', array(

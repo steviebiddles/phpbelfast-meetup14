@@ -37,12 +37,12 @@ class RandomQuoteListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        $request = $event->getRequest();
+
+        if (!$event->isMasterRequest() || '/' !== $request->getPathInfo()) {
             return;
         }
 
-        if (!in_array('random_quote_event', $this->twig->getGlobals())) {
-            $this->twig->addGlobal('random_quote_event', $this->quoteRepository->findRandom());
-        }
+        $this->twig->addGlobal('random_quote_event', $this->quoteRepository->findRandom());
     }
 }
