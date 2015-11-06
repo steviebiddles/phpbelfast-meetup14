@@ -26,6 +26,13 @@ class PostRepository extends EntityRepository
 {
     public function queryLatest()
     {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.publishedAt <= :now')->setParameter('now', new \DateTime())
+            ->orderBy('p.publishedAt', 'DESC');
+
+        return $qb->getQuery();
+
+        /*
         return $this->getEntityManager()
             ->createQuery('
                 SELECT p
@@ -35,6 +42,7 @@ class PostRepository extends EntityRepository
             ')
             ->setParameter('now', new \DateTime())
         ;
+        */
     }
 
     public function findLatest()
